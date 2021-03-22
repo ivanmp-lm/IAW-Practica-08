@@ -11,8 +11,7 @@ set -x
 DB_NAME=wordpress_db
 DB_USER=wordpress_user
 DB_PASSWORD=wordpress_password
-IP_PRIVADA_FRONTEND=localhost
-IP_MYSQL_SERVER=localhost
+IP_PRIVADA_FRONTEND=172.31.95.53
 #-----------------------------------------
 # Variables de configuración MySQL
 # ----------------------------------------
