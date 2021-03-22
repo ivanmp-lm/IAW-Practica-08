@@ -29,3 +29,9 @@ mysql -u root <<< "CREATE DATABASE $DB_NAME;"
 mysql -u root <<< "CREATE USER $DB_USER@$IP_PRIVADA_FRONTEND IDENTIFIED BY '$DB_PASSWORD';"
 mysql -u root <<< "GRANT ALL PRIVILEGES ON $DB_NAME.* TO $DB_USER@$IP_PRIVADA_FRONTEND;"
 mysql -u root <<< "FLUSH PRIVILEGES;"
+
+#Añadir archivo mysqld.cnf
+cp mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
+
+#Reiniciar servidor MySQL
+systemctl restart mysql
