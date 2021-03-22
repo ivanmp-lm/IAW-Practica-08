@@ -4,7 +4,7 @@
 DB_NAME=wordpress_db
 DB_USER=wordpress_user
 DB_PASSWORD=wordpress_password
-IP_PRIVADA_FRONTEND=
+IP_FRONTEND=
 IP_MYSQL_SERVER=
 #---Variables configuración Wordpress---#
 
@@ -45,3 +45,26 @@ sed -i "s/database_name_here/$DB_NAME/" wp-config.php
 sed -i "s/username_here/$DB_USER/" wp-config.php
 sed -i "s/password_here/$DB_PASSWORD/" wp-config.php
 sed -i "s/localhost/$IP_MYSQL_SERVER/" wp-config.php
+
+# Añadir IP del sitio
+echo "define('WP_SITEURL', 'http://$IP_FRONTEND/wordpress');" >> wp-config.php
+echo "define('WP_HOME', 'http://$IP_FRONTEND');" >> wp-config.php
+
+# Copiar archivo index.php a /var/www/html
+cp index.php /var/www/html
+
+# Editar index.php
+sed -i "s#wp-blog-header.php#wordpress/wp-blog-header.php#" /var/www/html/index.php
+
+# Habilitar módulo rewrite de apache
+a2enmod rewrite
+systemctl restart apache2
+
+# Copiar archivo htaccess a /var/www/html
+cp /home/ubuntu/IAW-Practica-08/Fase1/htaccess /var/www/html/.htaccess
+
+# Copiar archivo 000-default a /etc/apache2/sites-available/
+cp /home/ubuntu/IAW-Practica-08/Fase1/000-default.conf /etc/apache2/sites-available/
+
+#Reiniciar apache
+systemctl restart apache2
